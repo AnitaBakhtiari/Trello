@@ -1,0 +1,2 @@
+dotnet ef migrations add addAuthor -c ApplicationDbContext -o  .\Data\Migrations --project .\Infra\Infra.csproj --startup-project .\Trello\Trello.csproj
+dotnet ef database update -c ApplicationDbContext --project .\Infra\Infra.csproj --startup-project .\Trello\Trello.csproj

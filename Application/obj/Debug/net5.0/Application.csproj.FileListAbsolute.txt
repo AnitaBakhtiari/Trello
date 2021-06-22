@@ -1,0 +1,15 @@
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.csproj.AssemblyReference.cache
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.AssemblyInfoInputs.cache
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.AssemblyInfo.cs
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\Application.deps.json
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\Application.dll
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\ref\Application.dll
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\Application.pdb
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\Infra.dll
+C:\Users\Science Beam\source\repos\Trello\Application\bin\Debug\net5.0\Infra.pdb
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.csproj.CopyComplete
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.dll
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\ref\Application.dll
+C:\Users\Science Beam\source\repos\Trello\Application\obj\Debug\net5.0\Application.pdb

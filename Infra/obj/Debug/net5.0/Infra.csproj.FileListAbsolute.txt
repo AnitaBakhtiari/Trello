@@ -1,0 +1,15 @@
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.csproj.AssemblyReference.cache
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.AssemblyInfoInputs.cache
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.AssemblyInfo.cs
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.csproj.CoreCompileInputs.cache
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\Infra.deps.json
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\Infra.runtimeconfig.json
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\Infra.runtimeconfig.dev.json
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\Infra.dll
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\ref\Infra.dll
+C:\Users\Science Beam\source\repos\Trello\Infra\bin\Debug\net5.0\Infra.pdb
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.dll
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\ref\Infra.dll
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.pdb
+C:\Users\Science Beam\source\repos\Trello\Infra\obj\Debug\net5.0\Infra.genruntimeconfig.cache
