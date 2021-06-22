@@ -48,10 +48,7 @@ namespace Trello.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Test([FromServices] IHttpContextAccessor accessor)
         {
-
             return Ok(accessor.GetUserId());
-
-
         }
 
         [HttpPost]

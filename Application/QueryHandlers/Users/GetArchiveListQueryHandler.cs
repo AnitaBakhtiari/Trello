@@ -25,20 +25,8 @@ namespace Application.QueryHandlers
         }
         public async Task<IEnumerable<UserTask>> Handle(GetArchiveListQuery request, CancellationToken cancellationToken)
         {
-            var admin = await _unitOfWork.UserTaskRepository.GetListTasks();
-            var result = admin.Where(a => a.AdminId == null);
 
-            if (result == null)
-            {
-                return await _unitOfWork.UserTaskRepository.GetListArchiveTasks(_accessor.GetUserId());
-            }
-            else
-                return await _unitOfWork.UserTaskRepository.GetListArchiveTasksAdmin(_accessor.GetUserId());
-
-
-
-
-
+            return await _unitOfWork.UserTaskRepository.GetListArchiveTasks(_accessor.GetUserId());
 
         }
     }

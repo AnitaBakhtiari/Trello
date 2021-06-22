@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands;
+using Application.Commands.Admins;
 using Application.Queries;
 using Infra.Models;
 using MediatR;
@@ -12,20 +13,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Trello.Controllers
 {
-    public class TaskController : Controller
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+    public class AdminTaskController : Controller
     {
         private readonly IMediator _mediator;
-        public TaskController(IMediator mediator)
+        public AdminTaskController(IMediator mediator)
         {
             _mediator = mediator;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public Task<IEnumerable<UserTask>> GetList(GetListQuery getList)
         {
             return _mediator.Send(getList);
@@ -33,15 +31,19 @@ namespace Trello.Controllers
 
 
         [HttpGet]
-        public Task<IEnumerable<UserTask>> GetArchiveList(GetArchiveListQuery getList)
+        public Task<IEnumerable<UserTask>> GetArchiveListByAdmin(GetArchiveListByAdminQuery getList)
+        {
+            return _mediator.Send(getList);
+        }
+
+        [HttpGet]
+        public Task<IEnumerable<UserTask>> GetWaitingListByAdmin(GetWaitingListQuery getList)
         {
             return _mediator.Send(getList);
         }
 
 
-
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public Task<int> AddCategory(AddCategoryCommand categoryName)
         {
             return _mediator.Send(categoryName);
@@ -49,15 +51,16 @@ namespace Trello.Controllers
 
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-        public Task<int> AddTask(AddTaskCommand taskName )
+        public Task<int> AddTask(AddTaskCommand taskName)
         {
             return _mediator.Send(taskName);
         }
 
-
-
-
+        [HttpPost]
+        public Task<int> DoAgainTask(int id)
+        {
+            return _mediator.Send(new DoAgainTaskCommand() { Id = id });
+        }
 
 
     }
