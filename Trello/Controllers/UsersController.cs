@@ -22,9 +22,7 @@ namespace Trello.Controllers
         {
             _mediator = mediator;
         }
-      
-        
-
+              
 
         [HttpPost]
         public async Task<ActionResult<string>> Register([FromBody] RegisterCommand register)
@@ -60,7 +58,6 @@ namespace Trello.Controllers
         [HttpGet]
         public IActionResult TestAdmin([FromServices] IHttpContextAccessor accessor)
         {
-
             return Ok(accessor.GetUserId());
 
         }

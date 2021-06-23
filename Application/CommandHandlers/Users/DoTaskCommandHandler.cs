@@ -31,7 +31,9 @@ namespace Application.CommandHandlers
             var waiting = await _unitOfWork.UserTaskRepository.DoTask(request.Id, _accessor.GetUserId());
             await _unitOfWork.SaveChangeAsync();
 
-            await _hub.SendMessage(waiting, $"This user complete your task");
+            var connectionId = await _unitOfWork.UserRepository.FindConnectionIdAsync(waiting);
+
+            await _hub.SendMessage(connectionId, "This user complete your task");
 
             return request.Id;
         }

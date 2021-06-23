@@ -9,5 +9,6 @@ namespace Infra.Models
 {
     public  class ApplicationUser:IdentityUser
     {
+        public string ConnectionId { get; set; }
     }
 }

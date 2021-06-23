@@ -10,12 +10,13 @@ namespace Infra.Repositories
     public interface IUserTaskRepository
     {
         Task<IEnumerable<UserTask>> GetListTasks();
-        Task<IEnumerable<UserTask>> GetListArchiveTasks(string Id);
-        Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string Id);
-        Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string Id);
+        Task<IEnumerable<UserTask>> GetListArchiveTasks(string id);
+        Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string id);
+        Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string id);
         Task<string> AddTask(UserTask userTask);
-        Task<string> DoTask(int Id, string UserId);
-        Task<string> ManageTask(int Id, string AdminId, string Status);
+        Task<string> DoTask(int id, string UserId);
+        Task<string> ManageTask(int id, string adminId, string status);
+
 
     }
 
@@ -34,18 +35,18 @@ namespace Infra.Repositories
         }
 
 
-        public async Task<IEnumerable<UserTask>> GetListArchiveTasks(string Id)
+        public async Task<IEnumerable<UserTask>> GetListArchiveTasks(string id)
         {
-            return await _context.UserTasks.Where(a => a.UserId == Id && a.Status == "Done").ToListAsync();
+            return await _context.UserTasks.Where(a => a.UserId == id && a.Status == "Done").ToListAsync();
         }
 
-        public async Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string Id)
+        public async Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string id)
         {
-            return await _context.UserTasks.Where(a => a.AdminId == Id && a.Status == "Done").ToListAsync();
+            return await _context.UserTasks.Where(a => a.AdminId == id && a.Status == "Done").ToListAsync();
         }
-        public async Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string Id)
+        public async Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string id)
         {
-            return await _context.UserTasks.Where(a => a.AdminId == Id && a.Status == "Waiting").ToListAsync();
+            return await _context.UserTasks.Where(a => a.AdminId == id && a.Status == "Waiting").ToListAsync();
         }
 
         public async Task<IEnumerable<UserTask>> GetListTasks()
@@ -53,18 +54,18 @@ namespace Infra.Repositories
             return await _context.UserTasks.OrderByDescending(c => c.Date.Date).ThenBy(c => c.Date.TimeOfDay).ToListAsync();
         }
 
-        public async Task<string> DoTask(int Id, string UserId)
+        public async Task<string> DoTask(int id, string userId)
         {
-            var task = await _context.UserTasks.Where(a => a.Id == Id && a.UserId == UserId).FirstOrDefaultAsync();
+            var task = await _context.UserTasks.Where(a => a.Id == id && a.UserId == userId).FirstOrDefaultAsync();
             task.Status = "Waitting";
 
-            return task.AdminId;
+            return task.UserId;
 
         }
 
-        public async Task<string> ManageTask(int Id, string AdminId, string status)
+        public async Task<string> ManageTask(int id, string adminId, string status)
         {
-            var task = await _context.UserTasks.Where(a => a.Id == Id && a.AdminId == AdminId).FirstOrDefaultAsync();
+            var task = await _context.UserTasks.Where(a => a.Id == id && a.AdminId == adminId).FirstOrDefaultAsync();
             if (status == "DoAgain")
             {
                 task.Status = "DoAgain";
@@ -75,5 +76,7 @@ namespace Infra.Repositories
 
             return task.UserId;
         }
+
+     
     }
 }

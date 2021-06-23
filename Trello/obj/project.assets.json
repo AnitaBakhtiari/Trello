@@ -1661,7 +1661,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Infra": "1.0.0"
+          "Infra": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.7"
         },
         "compile": {
           "bin/placeholder/Application.dll": {}

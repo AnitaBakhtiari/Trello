@@ -65,7 +65,7 @@ namespace Application.CommandHandlers
             await _unitOfWork.CommitAsync();
 
             return await _jwt.GetTokenAsync(user);
-
+         
 
 
         }

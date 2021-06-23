@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Application.AuthoMapper;
 using Application.CommandHandlers;
 using Application.Workers;
@@ -57,6 +58,26 @@ namespace Trello
                           ValidAudience = Configuration["JWT:Issuer"],
                           IssuerSigningKey =
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
+                      };
+
+                      cfg.Events = new JwtBearerEvents
+                      {
+                          OnMessageReceived = context =>
+                          {
+
+                              var accessToken = context.Request.Query["access_token"];
+
+                              // If the request is for our hub...
+                              var path = context.HttpContext.Request.Path;
+                              if (!string.IsNullOrEmpty(accessToken) &&
+                                  (path.StartsWithSegments("/NotificationHub")))
+                              {
+                                  // Read the token out of the query string
+                                  context.Token = accessToken;
+                              }
+
+                              return Task.CompletedTask;
+                          }
                       };
                   }
                   );

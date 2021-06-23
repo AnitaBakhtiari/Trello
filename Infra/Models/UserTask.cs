@@ -13,6 +13,7 @@ namespace Infra.Models
         public int CategoryId { get; set; }
         public string UserId { get; set; }
         public string AdminId { get; set; }
+   
 
         public Category Category { get; set; }
         public ApplicationUser User { get; set; }
