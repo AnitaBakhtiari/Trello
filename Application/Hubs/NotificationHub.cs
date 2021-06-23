@@ -10,7 +10,7 @@ namespace Trello.Hubs
     {
         public async Task SendMessage(string Id , string Message)
         {
-            await Clients.Group("Id").SendAsync("Alert", Message);
+            await Clients.User("Id").SendAsync("Alert", Message);
         }
 
         public override Task OnConnectedAsync()

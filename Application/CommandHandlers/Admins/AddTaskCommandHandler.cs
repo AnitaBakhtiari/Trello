@@ -34,10 +34,14 @@ namespace Application.CommandHandlers
             request.AdminId = _accessor.GetUserId();
 
             var task = _mapper.Map<UserTask>(request);
-            await _unitOfWork.UserTaskRepository.AddTask(task);
+           var result= await _unitOfWork.UserTaskRepository.AddTask(task);
+            if (result == null)
+            {
+                return 400;
+            }
             await _unitOfWork.SaveChangeAsync();
 
-            await _hub.SendMessage(task.UserId, "You have new Task");
+            await _hub.SendMessage(result, "You have new Task");
             return task.Id;
 
         }

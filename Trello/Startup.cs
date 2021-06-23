@@ -106,6 +106,8 @@ namespace Trello
 
             services.AddScoped<IJwtService, JwtService>();
 
+            services.AddScoped<NotificationHub, NotificationHub>();
+
             services.AddHostedService<RejectWorker>();
 
 

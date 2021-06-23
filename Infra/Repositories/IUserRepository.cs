@@ -12,6 +12,7 @@ namespace Infra.Repositories
 
         Task<ApplicationUser> FindByEmailAsync(string email);
 
+
     }
 
 
