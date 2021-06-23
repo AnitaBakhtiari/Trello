@@ -13,8 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Trello.Controllers
 {
+
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-    public class AdminTaskController : Controller
+    public class AdminTaskController : BaseController
     {
         private readonly IMediator _mediator;
         public AdminTaskController(IMediator mediator)
@@ -57,9 +58,9 @@ namespace Trello.Controllers
         }
 
         [HttpPost]
-        public Task<int> DoAgainTask(int id)
+        public Task<int> ManageTask(ManageTaskCommand query)
         {
-            return _mediator.Send(new DoAgainTaskCommand() { Id = id });
+            return _mediator.Send(query);
         }
 
 

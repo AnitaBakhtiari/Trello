@@ -28,7 +28,7 @@ namespace Application.AuthoMapper
 
             CreateMap<AddTaskCommand, UserTask>()
                 .ForMember(a => a.Status, a => a.MapFrom(src => "ToDo"))
-                .ForMember(a => a.Date, a => a.MapFrom(src => DateTime.Now));
+                .ForMember(a => a.Date, a => a.MapFrom(src => DateTime.Now.AddMinutes(2)));
              
 
         }

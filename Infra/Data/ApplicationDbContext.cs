@@ -33,7 +33,6 @@ namespace Infra.Data
                 Id= "8699e184-5e8f-4390-b158-6a2bcd2b90c6",
                 ConcurrencyStamp= "fece92c4-2918-45d7-9155-93af67ff14d0"
 
-
             });
 
 

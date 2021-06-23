@@ -12,8 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Trello.Controllers
 {
+    
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class UserTaskController : Controller
+    public class UserTaskController : BaseController
     {
 
         private readonly IMediator _mediator;
@@ -21,10 +22,7 @@ namespace Trello.Controllers
         {
             _mediator = mediator;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+      
 
         [HttpGet]
         public Task<IEnumerable<UserTask>> GetArchiveList(GetArchiveListQuery getList)

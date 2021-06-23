@@ -14,20 +14,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace Trello.Controllers
 {
 
-
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private readonly IMediator _mediator;
 
         public UsersController(IMediator mediator)
         {
-
             _mediator = mediator;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+      
+        
 
 
         [HttpPost]
@@ -46,6 +42,7 @@ namespace Trello.Controllers
 
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
         public IActionResult Test([FromServices] IHttpContextAccessor accessor)
         {
             return Ok(accessor.GetUserId());
@@ -60,6 +57,7 @@ namespace Trello.Controllers
 
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Admin")]
+        [HttpGet]
         public IActionResult TestAdmin([FromServices] IHttpContextAccessor accessor)
         {
 

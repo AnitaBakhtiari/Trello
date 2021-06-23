@@ -7,9 +7,10 @@ using MediatR;
 
 namespace Application.Commands.Admins
 {
-    public class DoAgainTaskCommand : IRequest<int>
+    public class ManageTaskCommand : IRequest<int>
     {
         public int Id { get; set; }
-   
+        public string Status { get; set; }
+
     }
 }

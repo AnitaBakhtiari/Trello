@@ -15,7 +15,7 @@ namespace Infra.Repositories
         Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string Id);
         Task AddTask(UserTask userTask);
         Task DoTask(int Id, string UserId);
-        Task DoAgainTask(int Id, string AdminId);
+        Task ManageTask(int Id, string AdminId,string Status);
 
     }
 
@@ -31,8 +31,6 @@ namespace Infra.Repositories
         {
             await _context.UserTasks.AddAsync(userTask);
         }
-
-
 
 
         public async Task<IEnumerable<UserTask>> GetListArchiveTasks(string Id)
@@ -60,11 +58,16 @@ namespace Infra.Repositories
             task.Status = "Waitting";
         }
 
-        public async Task DoAgainTask(int Id, string AdminId)
+        public async Task ManageTask(int Id, string AdminId,string status)
         {
             var task = await _context.UserTasks.Where(a => a.Id == Id && a.AdminId == AdminId).FirstOrDefaultAsync();
-            task.Status = "DoAgain";
-            task.Date= task.Date.AddDays(10);
+            if (status == "DoAgain")
+            {
+                task.Status = "DoAgain";
+                task.Date = task.Date.AddDays(10);
+            }
+            else
+            task.Status = "Done";
         }
     }
 }

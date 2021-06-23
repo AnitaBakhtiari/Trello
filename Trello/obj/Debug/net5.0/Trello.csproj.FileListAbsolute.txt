@@ -83,3 +83,8 @@ C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Application.dl
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Infra.dll
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Application.pdb
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Infra.pdb
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\libman.json

@@ -10,5 +10,6 @@ namespace Application.Commands
    public class DoTaskCommand:IRequest<int>
     {
         public  int Id { get; set; }
+      
     }
 }

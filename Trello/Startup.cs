@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using Application.AuthoMapper;
 using Application.CommandHandlers;
+using Application.Workers;
 using Infra.Data;
 using Infra.Models;
 using Infra.Repositories;
@@ -18,7 +19,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
+using Trello.Hubs;
 
 namespace Trello
 {
@@ -75,6 +77,7 @@ namespace Trello
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -103,6 +106,36 @@ namespace Trello
 
             services.AddScoped<IJwtService, JwtService>();
 
+            services.AddHostedService<RejectWorker>();
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Trello", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+
+            });
+
+
 
         }
 
@@ -113,6 +146,10 @@ namespace Trello
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trello v1"));
+
             }
             else
             {
@@ -134,7 +171,12 @@ namespace Trello
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+                endpoints.MapHub<NotificationHub>("/NotificationHub");
+
             });
+
+          
+
         }
     }
 }

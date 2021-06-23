@@ -14,10 +14,7 @@ namespace Infra.Models
         public string UserId { get; set; }
         public string AdminId { get; set; }
 
-        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
-        //   [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         public ApplicationUser Admin { get; set; }
 
