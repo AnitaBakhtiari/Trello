@@ -28,20 +28,10 @@ namespace Application.CommandHandlers
 
         public async Task<int> Handle(DoTaskCommand request, CancellationToken cancellationToken)
         {
-            var waiting=  await _unitOfWork.UserTaskRepository.DoTask(request.Id, _accessor.GetUserId());
+            var waiting = await _unitOfWork.UserTaskRepository.DoTask(request.Id, _accessor.GetUserId());
+            await _unitOfWork.SaveChangeAsync();
 
-            //if (waiting.AsyncState == null)
-            //{
-            //    return 404;
-            //}
-
-          
-                await _unitOfWork.SaveChangeAsync();
-
-           // var TaskList = await _unitOfWork.UserTaskRepository.GetListTasks();
-          //  var AdminId = TaskList.SingleOrDefault(a => a.Id == waiting.Id);
-            
-           await _hub.SendMessage(waiting, $"");
+            await _hub.SendMessage(waiting, $"This user complete your task");
 
             return request.Id;
         }

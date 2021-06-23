@@ -19,7 +19,7 @@ namespace Application.CommandHandlers.Admins
         private readonly IHttpContextAccessor _accessor;
         private readonly NotificationHub _hub;
 
-        public ManageTaskCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor accessor,NotificationHub hub)
+        public ManageTaskCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor accessor, NotificationHub hub)
         {
             _accessor = accessor;
             _unitOfWork = unitOfWork;
@@ -29,12 +29,12 @@ namespace Application.CommandHandlers.Admins
         public async Task<int> Handle(ManageTaskCommand request, CancellationToken cancellationToken)
         {
 
-            var task =  _unitOfWork.UserTaskRepository.ManageTask(request.Id, _accessor.GetUserId(), request.Status);
-     
+            var task = await _unitOfWork.UserTaskRepository.ManageTask(request.Id, _accessor.GetUserId(), request.Status);
+
             await _unitOfWork.SaveChangeAsync();
             if (request.Status == "DoAgain")
             {
-             //   await _hub.SendMessage(, "Please Complete this Task");
+                await _hub.SendMessage(task, "Please Complete this Task");
             }
 
             return request.Id;

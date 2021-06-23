@@ -34,7 +34,7 @@ namespace Application.CommandHandlers
             request.AdminId = _accessor.GetUserId();
 
             var task = _mapper.Map<UserTask>(request);
-           var result= await _unitOfWork.UserTaskRepository.AddTask(task);
+            var result = await _unitOfWork.UserTaskRepository.AddTask(task);
             if (result == null)
             {
                 return 400;
