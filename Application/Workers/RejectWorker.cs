@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Application.Events;
 using Application.Hubs;
 using Infra.Repositories;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -15,12 +16,12 @@ namespace Application.Workers
     public class RejectWorker : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly INotificationHub _hub;
+        private readonly IMediator _mediator;
 
-        public RejectWorker(IServiceProvider serviceProvider, INotificationHub hub)
+        public RejectWorker(IServiceProvider serviceProvider, IMediator mediator)
         {
             _serviceProvider = serviceProvider;
-            _hub = hub;
+            _mediator = mediator;
         }
 
 
@@ -28,28 +29,30 @@ namespace Application.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
-                await Task.Delay(TimeSpan.FromSeconds(10));
-
+                await Task.Delay(TimeSpan.FromSeconds(30));
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     try
                     {
-
-                        
                         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
                         var ToDoTasks = await unitOfWork.UserTaskRepository.GetListToDoTasks();
-                  
 
                         foreach (var item in ToDoTasks)
                         {
+                            var connectionId = await unitOfWork.UserRepository.FindConnectionIdAsync(item.UserId);
+
+                            if (DateTime.Now >= item.Date.AddHours(1) && DateTime.Now <= item.Date.AddHours(1).AddSeconds(30))
+                            {
+                                await _mediator.Publish(new ReminderTaskEvent() { ConectionId = connectionId });
+                            }
+
+
+
                             if (DateTime.Now > item.Date)
                             {
                                 item.Status = "ToDo";
                                 item.Date = item.Date.AddDays(10);
-                                var connectionId = await unitOfWork.UserRepository.FindConnectionIdAsync(item.UserId);
-                                await _hub.SendMessage(new ToDoWorkerEvent() { ConectionId = connectionId });
-
+                                await _mediator.Publish(new ToDoWorkerEvent() { ConectionId = connectionId });
                             }
                         }
 
@@ -69,3 +72,4 @@ namespace Application.Workers
         }
     }
 }
+
