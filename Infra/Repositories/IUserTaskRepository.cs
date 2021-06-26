@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Infra.Data;
@@ -10,13 +11,13 @@ namespace Infra.Repositories
     public interface IUserTaskRepository
     {
         Task<IEnumerable<UserTask>> GetListTasks();
+        Task<IEnumerable<UserTask>> GetListToDoTasks();
         Task<IEnumerable<UserTask>> GetListArchiveTasks(string id);
         Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string id);
         Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string id);
-        Task<string> AddTask(UserTask userTask);
-        Task<string> DoTask(int id, string UserId);
-        Task<string> ManageTask(int id, string adminId, string status);
-
+        Task AddTask(UserTask userTask);
+        Task<UserTask> DoTask(int id, string UserId);
+        Task<UserTask> ManageTask(int id, string adminId, string status);
 
     }
 
@@ -28,10 +29,10 @@ namespace Infra.Repositories
             _context = context;
         }
 
-        public async Task<string> AddTask(UserTask userTask)
+        public async Task AddTask(UserTask userTask)
         {
             await _context.UserTasks.AddAsync(userTask);
-            return userTask.UserId;
+
         }
 
 
@@ -54,29 +55,29 @@ namespace Infra.Repositories
             return await _context.UserTasks.OrderByDescending(c => c.Date.Date).ThenBy(c => c.Date.TimeOfDay).ToListAsync();
         }
 
-        public async Task<string> DoTask(int id, string userId)
+        public async Task<IEnumerable<UserTask>> GetListToDoTasks()
+        {
+            return await _context.UserTasks.OrderByDescending(c => c.Date.Date).ThenBy(c => c.Date.TimeOfDay).Where(a => a.Status == "ToDo").ToListAsync();
+        }
+
+
+        public async Task<UserTask> DoTask(int id, string userId)
         {
             var task = await _context.UserTasks.Where(a => a.Id == id && a.UserId == userId).FirstOrDefaultAsync();
             task.Status = "Waitting";
+            return task;
 
-            return task.UserId;
 
         }
 
-        public async Task<string> ManageTask(int id, string adminId, string status)
+
+        public async Task<UserTask> ManageTask(int id, string adminId, string status)
         {
             var task = await _context.UserTasks.Where(a => a.Id == id && a.AdminId == adminId).FirstOrDefaultAsync();
-            if (status == "DoAgain")
-            {
-                task.Status = "DoAgain";
-                task.Date = task.Date.AddDays(10);
-            }
-            else
-                task.Status = "Done";
+            return task;
 
-            return task.UserId;
         }
 
-     
+
     }
 }

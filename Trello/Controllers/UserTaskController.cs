@@ -32,9 +32,9 @@ namespace Trello.Controllers
 
 
         [HttpPost]
-        public Task<int> DoTask(int Id)
+        public Task<int> DoTask(int id)
         {
-            return _mediator.Send(new DoTaskCommand() { Id=Id});
+            return _mediator.Send(new DoTaskCommand() { Id=id});
         }
 
     }

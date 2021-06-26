@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.AuthoMapper;
 using Application.CommandHandlers;
+using Application.Hubs;
 using Application.Workers;
 using Infra.Data;
 using Infra.Models;
@@ -83,7 +84,6 @@ namespace Trello
                   );
 
 
-
             services.AddIdentity<ApplicationUser, ApplicationRole>(o =>
             {
                 o.Password.RequireDigit = false;
@@ -127,7 +127,7 @@ namespace Trello
 
             services.AddScoped<IJwtService, JwtService>();
 
-            services.AddScoped<NotificationHub, NotificationHub>();
+            services.AddScoped<INotificationHub, NotificationHub>();
 
             services.AddHostedService<RejectWorker>();
 

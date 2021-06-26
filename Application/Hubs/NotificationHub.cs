@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Application.Hubs;
 using Infra.Extentions;
 using Infra.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,7 +12,7 @@ namespace Trello.Hubs
 {
 
 
-    public class NotificationHub : Hub
+    public class NotificationHub : Hub , INotificationHub
     {
         private readonly IHttpContextAccessor _accessor;
         private readonly IUnitOfWork _unitOfWork;
@@ -24,7 +25,7 @@ namespace Trello.Hubs
         }
 
 
-        public static string ConnectionId;
+     
         public async Task SendMessage(string id, string message)
         {
             await Clients.Client(id).SendAsync("Alert", message);
@@ -34,13 +35,14 @@ namespace Trello.Hubs
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public override Task OnConnectedAsync()
         {
-            var Id = _accessor.GetUserId();
-            var ConnectionId = Context.ConnectionId;
-            _unitOfWork.UserRepository.AddSignalR(Id, ConnectionId);
+            var id = _accessor.GetUserId();
+            var connectionId = Context.ConnectionId;
+            _unitOfWork.UserRepository.UpdateSignalR(id, connectionId);
             _unitOfWork.SaveChangeAsync();
 
             return base.OnConnectedAsync();
         }
+
 
 
         public override Task OnDisconnectedAsync(Exception exception)

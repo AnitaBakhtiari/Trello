@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infra.Repositories
 {
@@ -20,6 +21,7 @@ namespace Infra.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+        private IDbContextTransaction _transaction;
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -37,17 +39,24 @@ namespace Infra.Repositories
 
         public async Task BeginTransactionAsync()
         {
-            await _context.Database.BeginTransactionAsync();
+            _transaction = await _context.Database.BeginTransactionAsync();
         }
 
         public async Task CommitAsync()
         {
-            await _context.Database.CommitTransactionAsync();
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+            }
+             
         }
 
         public async Task RollBackAsync()
         {
-            await _context.Database.RollbackTransactionAsync();
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+            }
         }
 
         public async Task<int> SaveChangeAsync()

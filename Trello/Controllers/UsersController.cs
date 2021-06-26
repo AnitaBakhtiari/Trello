@@ -39,12 +39,7 @@ namespace Trello.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet]
-        public IActionResult Test([FromServices] IHttpContextAccessor accessor)
-        {
-            return Ok(accessor.GetUserId());
-        }
+   
 
         [HttpPost]
         public async Task<ActionResult<string>> RegisterAdmin([FromBody] RegisterAdminCommand register)
@@ -54,13 +49,6 @@ namespace Trello.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Roles ="Admin")]
-        [HttpGet]
-        public IActionResult TestAdmin([FromServices] IHttpContextAccessor accessor)
-        {
-            return Ok(accessor.GetUserId());
-
-        }
 
 
 
