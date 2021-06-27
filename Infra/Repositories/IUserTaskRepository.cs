@@ -12,6 +12,7 @@ namespace Infra.Repositories
     {
         Task<IEnumerable<UserTask>> GetListTasks();
         Task<IEnumerable<UserTask>> GetListToDoTasks();
+        Task<IEnumerable<UserTask>> GetListToDoTasksByUser(string userId);
         Task<IEnumerable<UserTask>> GetListArchiveTasks(string id);
         Task<IEnumerable<UserTask>> GetListArchiveTasksAdmin(string id);
         Task<IEnumerable<UserTask>> GetWaitingListTasksAdmin(string id);
@@ -59,6 +60,13 @@ namespace Infra.Repositories
         {
             return await _context.UserTasks.OrderByDescending(c => c.Date.Date).ThenBy(c => c.Date.TimeOfDay).Where(a => a.Status == "ToDo").ToListAsync();
         }
+
+        public async Task<IEnumerable<UserTask>> GetListToDoTasksByUser(string userId)
+        {
+            return await _context.UserTasks.OrderByDescending(c => c.Date.Date).ThenBy(c => c.Date.TimeOfDay)
+                .Where(a => a.Status == "ToDo" && a.UserId == userId).ToListAsync();
+        }
+
 
 
         public async Task<UserTask> DoTask(int id, string userId)

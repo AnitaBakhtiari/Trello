@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Commands;
 using Application.Queries;
+using Application.Queries.Users;
 using Infra.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,6 +37,14 @@ namespace Trello.Controllers
         {
             return _mediator.Send(new DoTaskCommand() { Id=id});
         }
+
+        [HttpPost]
+        public Task<IEnumerable<UserTask>> GetToDoTaskList(GetToDoTaskListQuery getList)
+        {
+            return _mediator.Send(getList);
+        }
+
+
 
     }
 }
