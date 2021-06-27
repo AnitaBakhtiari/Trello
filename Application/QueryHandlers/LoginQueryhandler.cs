@@ -17,15 +17,13 @@ namespace Application.QueryHandlers
 {
     public class LoginQueryhandler : IRequestHandler<LoginQuery, string>
     {
-
+          
         private readonly SignInManager<ApplicationUser> _sign;
-        private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtService _jwt;
 
-        public LoginQueryhandler(SignInManager<ApplicationUser> sign, ApplicationDbContext context, IJwtService jwt, IUnitOfWork unitOfWork)
+        public LoginQueryhandler(SignInManager<ApplicationUser> sign, IJwtService jwt, IUnitOfWork unitOfWork)
         {
-            _context = context;
             _sign = sign;
             _jwt = jwt;
             _unitOfWork = unitOfWork;

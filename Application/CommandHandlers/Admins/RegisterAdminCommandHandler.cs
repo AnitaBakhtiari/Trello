@@ -20,7 +20,6 @@ namespace Application.CommandHandlers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IJwtService _jwt;
         private readonly IMapper _mapper;
-
         private readonly IUnitOfWork _unitOfWork;
 
         public RegisterAdminCommandHandler(UserManager<ApplicationUser> userManager, IJwtService jwt, IMapper mapper, IUnitOfWork unitOfWork)
@@ -41,7 +40,7 @@ namespace Application.CommandHandlers
 
             var user = _mapper.Map<ApplicationUser>(request);
 
-            //   var transaction = await _context.Database.BeginTransactionAsync();
+            // var transaction = await _context.Database.BeginTransactionAsync();
 
             await _unitOfWork.BeginTransactionAsync();
 
@@ -65,7 +64,7 @@ namespace Application.CommandHandlers
             await _unitOfWork.CommitAsync();
 
             return await _jwt.GetTokenAsync(user);
-         
+
 
 
         }

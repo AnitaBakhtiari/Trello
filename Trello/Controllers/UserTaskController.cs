@@ -13,17 +13,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Trello.Controllers
 {
-    
+
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserTaskController : BaseController
     {
-
         private readonly IMediator _mediator;
         public UserTaskController(IMediator mediator)
         {
             _mediator = mediator;
         }
-      
 
         [HttpGet]
         public Task<IEnumerable<UserTask>> GetArchiveList(GetArchiveListQuery getList)
@@ -31,11 +29,10 @@ namespace Trello.Controllers
             return _mediator.Send(getList);
         }
 
-
         [HttpPost]
         public Task<int> DoTask(int id)
         {
-            return _mediator.Send(new DoTaskCommand() { Id=id});
+            return _mediator.Send(new DoTaskCommand() { Id = id });
         }
 
         [HttpPost]
@@ -43,7 +40,6 @@ namespace Trello.Controllers
         {
             return _mediator.Send(getList);
         }
-
 
 
     }
