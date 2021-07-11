@@ -16,8 +16,7 @@ namespace Infra.Repositories
 
     public class CategoryRepository : ICategoryRepository
     {
-       
-        // private readonly ApplicationDbContext _context;
+      
         private readonly IConfiguration _configuration;
         public CategoryRepository(IConfiguration configuration)
         {
@@ -25,17 +24,12 @@ namespace Infra.Repositories
 
         }
         public async Task AddCategory(Category category)
-        {
-            //  await _context.Categories.AddAsync(category);
-
+        { 
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-           
                 var sql = "INSERT INTO Categories (Name) VALUES(@Name)";
                 await db.QueryAsync<Category>(sql, new { category.Name });
             }
-
-                
 
         }
     }
