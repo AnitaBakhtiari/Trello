@@ -6,8 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Events;
 using Application.Hubs;
+using Infra.Data;
 using Infra.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -18,12 +20,13 @@ namespace Application.Workers
         private readonly IServiceProvider _serviceProvider;
         private readonly IMediator _mediator;
 
+
         public RejectWorker(IServiceProvider serviceProvider, IMediator mediator)
         {
             _serviceProvider = serviceProvider;
             _mediator = mediator;
+     
         }
-
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -39,19 +42,20 @@ namespace Application.Workers
 
                         foreach (var item in ToDoTasks)
                         {
-                            var connectionId = await unitOfWork.UserRepository.FindConnectionIdAsync(item.UserId);
-
+ 
+                        
                             if (DateTime.Now >= item.Date.AddHours(1) && DateTime.Now <= item.Date.AddHours(1).AddSeconds(30))
                             {
+                                var connectionId = await unitOfWork.UserRepository.FindConnectionIdAsync(item.UserId);
                                 await _mediator.Publish(new ReminderTaskEvent() { ConectionId = connectionId });
                             }
-
 
 
                             if (DateTime.Now > item.Date)
                             {
                                 item.Status = "ToDo";
                                 item.Date = item.Date.AddDays(10);
+                                var connectionId = await unitOfWork.UserRepository.FindConnectionIdAsync(item.UserId);
                                 await _mediator.Publish(new ToDoWorkerEvent() { ConectionId = connectionId });
                             }
                         }

@@ -25,20 +25,20 @@ namespace Trello.Controllers
 
 
         [HttpGet]
-        public Task<IEnumerable<UserTask>> GetList(GetListQuery getList)
+        public Task<IEnumerable<UserTask>> GetList([FromQuery] GetListQuery getList)
         {
             return _mediator.Send(getList);
         }
 
 
         [HttpGet]
-        public Task<IEnumerable<UserTask>> GetArchiveListByAdmin(GetArchiveListByAdminQuery getList)
+        public Task<IEnumerable<UserTask>> GetArchiveListByAdmin([FromQuery] GetArchiveListByAdminQuery getList)
         {
             return _mediator.Send(getList);
         }
 
         [HttpGet]
-        public Task<IEnumerable<UserTask>> GetWaitingListByAdmin(GetWaitingListQuery getList)
+        public Task<IEnumerable<UserTask>> GetWaitingListByAdmin([FromQuery] GetWaitingListQuery getList)
         {
             return _mediator.Send(getList);
         }
@@ -52,13 +52,13 @@ namespace Trello.Controllers
 
 
         [HttpPost]
-        public Task<int> AddTask(AddTaskCommand taskName)
+        public Task<int> AddTask([FromHeader] AddTaskCommand taskName)
         {
             return _mediator.Send(taskName);
         }
 
         [HttpPost]
-        public Task<int> ManageTask(ManageTaskCommand query)
+        public Task<int> ManageTask([FromHeader] ManageTaskCommand query)
         {
             return _mediator.Send(query);
         }

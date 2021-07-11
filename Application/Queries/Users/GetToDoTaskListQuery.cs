@@ -9,8 +9,9 @@ using MediatR;
 namespace Application.Queries.Users
 {
 
-  public  class GetToDoTaskListQuery : IRequest<IEnumerable<UserTask>>
+    public class GetToDoTaskListQuery : IRequest<IEnumerable<UserTask>>
     {
+        public int CategoryId { get; set; }
 
     }
 }

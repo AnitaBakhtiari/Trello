@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "HKz5aYy+Lf4xyAcSTQAxj3c36c1oG7sC2+WoEiObVf2FreZKGnsefw2fcQ7PVON1k7ct+KGGJukQ3ROHgkbYDQ==",
+  "dgSpecHash": "vlowC5krCuPFk+UHvdgaNqgiehXG5QACj/YxdddnbbqPOdx/udKrs6LKa+wkf7vyOqAIVpC980EQHPFs2MkrBQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Science Beam\\source\\repos\\Trello\\Infra\\Infra.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Science Beam\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Science Beam\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "C:\\Users\\Science Beam\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\Science Beam\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Science Beam\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\Science Beam\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",

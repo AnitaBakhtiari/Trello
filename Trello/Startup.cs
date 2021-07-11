@@ -99,10 +99,12 @@ namespace Trello
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddSignalR();
+            services.AddScoped<INotificationHub, NotificationHub>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -127,10 +129,8 @@ namespace Trello
 
             services.AddScoped<IJwtService, JwtService>();
 
-            services.AddScoped<INotificationHub, NotificationHub>();
 
             services.AddHostedService<RejectWorker>();
-
 
             services.AddSwaggerGen(c =>
             {

@@ -31,12 +31,6 @@ namespace Application.QueryHandlers.Users
 
            await _unitOfWrok.UserTaskRepository.GetListToDoTasksByUser(userId);
 
-
-
-
-
-
-
             throw new NotImplementedException();
         }
     }
