@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Infra.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 
 namespace Infra.Repositories
 {
@@ -21,19 +24,24 @@ namespace Infra.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+
+        private IDbConnection db;
+        private readonly IConfiguration _configuration;
         private IDbContextTransaction _transaction;
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context , IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
+            this.db = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
 
         private IUserTaskRepository _userTaskRepository;
         private IUserRepository _userRepository;
         private ICategoryRepository _categoryRepository;
 
-        public IUserTaskRepository UserTaskRepository => _userTaskRepository ??= new UserTaskRepository(_context);
-        public IUserRepository UserRepository => _userRepository ??= new UserRepository(_context);
-        public ICategoryRepository CategoryRepository => _categoryRepository ??= new CategoryRepository(_context);
+        public IUserTaskRepository UserTaskRepository => _userTaskRepository ??= new UserTaskRepository(_configuration);
+        public IUserRepository UserRepository => _userRepository ??= new UserRepository(_configuration);
+        public ICategoryRepository CategoryRepository => _categoryRepository ??= new CategoryRepository(_configuration);
 
 
 

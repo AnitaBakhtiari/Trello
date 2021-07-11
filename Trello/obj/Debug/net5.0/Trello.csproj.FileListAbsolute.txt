@@ -88,3 +88,4 @@ C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.As
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\libman.json
+C:\Users\Science Beam\source\repos\Trello\Trello\bin\Debug\net5.0\Dapper.dll

@@ -32,6 +32,7 @@ namespace Application.CommandHandlers
             await _unitOfWork.CategoryRepository.AddCategory(category);
             await _unitOfWork.SaveChangeAsync();
             return category.Id;
+
         }
     }
 }
